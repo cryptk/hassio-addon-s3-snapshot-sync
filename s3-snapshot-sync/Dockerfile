@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base/amd64:8.0.6
+ARG BUILD_FROM=hassioaddons/base-amd64:8.0.6
 # hadolint ignore=DL3006
 FROM $BUILD_FROM
 
@@ -6,8 +6,8 @@ ENV LANG C.UTF-8
 
 # add aws-cli and deps
 RUN apk -v --no-cache add \
-    python3=3.8.7-r0 \
-    py3-pip=20.3.3-r0 \
+    python3=3.8.5-r0 \
+    py3-pip=20.1.1-r0 \
     jq=1.6-r1 && \
     pip3 install awscli==1.18.216
 
