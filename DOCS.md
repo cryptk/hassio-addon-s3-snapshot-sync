@@ -10,13 +10,13 @@ backups.
 ## Installation
 
 1. Follow the instructions to configure the repository in your Home Assistant
-    OS within the [Repo README](../README.md)
+   OS within the [Repo README](../README.md)
 1. Search for the "S3 Snapshot Sync" addon in the Supervisor add-on store and
-    install it
+   install it
 1. Create an AWS S3 bucket to store your Home Assistant snapshots
 1. Create an AWS IAM user and access keys for this addon to use
 1. Attach an AWS IAM policy to the user that grants it the required access to
-    the S3 bucket (an example policy is provided below)
+   the S3 bucket (an example policy is provided below)
 
 ## Configuration
 
@@ -51,7 +51,7 @@ created.
 ### Option `s3_endpoint_url`
 
 The `s3_endpoint_url` option allows overriding the s3 endpoint url that is
-provided to awscli. This is useful if you are syncing to an alternative S3 
+provided to awscli. This is useful if you are syncing to an alternative S3
 compatible object store (such as minio).
 
 ### Option `purge_days`
