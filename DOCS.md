@@ -3,10 +3,10 @@
 This addon manages the process of offloading snapshots to AWS S3.
 Automatically removing older snapshots from Home Assistant OS is also possible.
 
-This addon does NOT handle removing old snapshots from the S3 bucket.  It is recommended to configure
+This addon does NOT handle removing old snapshots from the S3 bucket. It is recommended to configure
 a bucket lifecycle policy to handle expiring old backups.
 
-## Installation 
+## Installation
 
 1. Follow the instructions to configure the repository in your Home Assistant OS within the [Repo README](../README.md)
 1. Search for the "S3 Snapshot Sync" addon in the Supervisor add-on store and install it
@@ -17,6 +17,7 @@ a bucket lifecycle policy to handle expiring old backups.
 ## Configuration
 
 Example add-on configuration:
+
 ```yaml
 aws_access_key_id: "AKIAABCDEFGHIJKLMNOP",
 aws_secret_access_key: "YOURAWSSECRETKEYHERE",
@@ -46,7 +47,7 @@ This is useful if you are syncing to a non-AWS S3 (such as minio).
 
 ### Option `purge_days`
 
-This option is OPTIONAL.  If you would like the addon to automatically delete old snapshots from Home Assistant OS, you can specify purge_days
+This option is OPTIONAL. If you would like the addon to automatically delete old snapshots from Home Assistant OS, you can specify purge_days
 and the addon will delete any addons over that age after a successful sync.
 
 Please note, for now this is done with a basic find command, it will be improved at some point in the future to use the proper ha_api
@@ -57,52 +58,51 @@ Ensure that you replace S3_BUCKET_NAME in the below example with the name of the
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "s3:PutObject",
-                "s3:ListBucket"
-            ],
-            "Resource": [
-                "arn:aws:s3:::S3_BUCKET_NAME/*",
-                "arn:aws:s3:::S3_BUCKET_NAME"
-            ]
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "VisualEditor0",
+      "Effect": "Allow",
+      "Action": ["s3:PutObject", "s3:ListBucket"],
+      "Resource": [
+        "arn:aws:s3:::S3_BUCKET_NAME/*",
+        "arn:aws:s3:::S3_BUCKET_NAME"
+      ]
+    }
+  ]
 }
 ```
 
 ## Useful Automations
 
 Create a backup once a day at midnight
+
 ```yaml
 alias: Daily Snapshot
-description: ''
+description: ""
 trigger:
   - platform: time_pattern
-    hours: '0'
-    minutes: '0'
-    seconds: '0'
+    hours: "0"
+    minutes: "0"
+    seconds: "0"
 condition: []
 action:
   - service: hassio.snapshot_full
     data:
-      name: 'Automated Backup {{ now().strftime(''%Y-%m-%d-%H-%M-%S'') }}'
+      name: "Automated Backup {{ now().strftime('%Y-%m-%d-%H-%M-%S') }}"
 mode: single
 ```
 
 Run the snapshot backup at 1AM
+
 ```yaml
 alias: Backup Snapshots to S3
-description: ''
+description: ""
 trigger:
   - platform: time_pattern
-    hours: '1'
-    minutes: '0'
-    seconds: '0'
+    hours: "1"
+    minutes: "0"
+    seconds: "0"
 condition: []
 action:
   - service: hassio.addon_start
